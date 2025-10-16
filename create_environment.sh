@@ -1,12 +1,8 @@
 #!/bin/bash
 
-# -------------------------------
 # AUTHOR:G-Zigira
-# create_environment.sh
-# This script sets up the submission reminder app environment automatically.
-# It creates all necessary folders and files, adds the provided source code,
-# and gives proper permissions so everything runs smoothly.
-# -------------------------------
+# This script sets up the submission reminder environment,creates all necessary folders with files,
+# and gives execute permissions so everything runs.
 
 # Ask the user for their name
 read -p "Enter your name: " username
@@ -20,21 +16,19 @@ fi
 # Name of the main directory
 folder_name="submission_reminder_${username}"
 
-# Create the full directory structure
+# Creating the full directory structuure
 mkdir -p "$folder_name"/{app,modules,assets,config}
 
-# -------------------------------
-# Creating the config.env file
-# -------------------------------
+# This segment is for creating the config.env file
+
 cat > "$folder_name/config/config.env" <<'EOF'
 # This file stores key variables for the app
 ASSIGNMENT="Shell Navigation"
 DAYS_REMAINING=2
 EOF
 
-# -------------------------------
-# Creating the submissions.txt file
-# -------------------------------
+# This segment is for creating  the submissions.txt file
+
 cat > "$folder_name/assets/submissions.txt" <<'EOF'
 student, assignment, submission status
 Chinemerem, Shell Navigation, not submitted
@@ -43,9 +37,9 @@ Divine, Shell Navigation, not submitted
 Anissa, Shell Basics, submitted
 EOF
 
-# -------------------------------
-# Creating the functions.sh file
-# -------------------------------
+
+# This segment is for creating the functions.sh file
+
 cat > "$folder_name/modules/functions.sh" <<'EOF'
 #!/bin/bash
 
@@ -69,9 +63,8 @@ function check_submissions {
 }
 EOF
 
-# -------------------------------
-# Creating the reminder.sh file
-# -------------------------------
+
+# This segment is for creating the reminder.sh file
 cat > "$folder_name/app/reminder.sh" <<'EOF'
 #!/bin/bash
 
@@ -93,9 +86,9 @@ echo "--------------------------------------------"
 check_submissions "$submissions_file"
 EOF
 
-# -------------------------------
-# Creating the startup.sh file
-# -------------------------------
+
+# This segment is for creating the startup.sh file
+
 cat > "$folder_name/startup.sh" <<'EOF'
 #!/bin/bash
 
@@ -116,9 +109,6 @@ echo "----------------------------------------"
 bash "$APP_DIR/app/reminder.sh"
 EOF
 
-# -------------------------------
-# Final setup and permissions
-# -------------------------------
 # Give execution permission to every .sh file we just created
 find "$folder_name" -type f -name "*.sh" -exec chmod 755 {} \;
 
